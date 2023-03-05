@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <nav>
-      <img src="./images/logo.png" alt="logo_picture" />
+      <img src="/images/logo.png" alt="logo_picture" />
 
       <ul className="menu">
         <li>
