@@ -20,7 +20,6 @@ export default function Login() {
                 name="email"
                 placeholder="alex@gmail.com"
                 required
-                
               />
             </li>
             <li>
@@ -34,7 +33,6 @@ export default function Login() {
                 required
               />
             </li>
-
             <li className={styles["center-btn"]}>
               <button className={styles["login-btn"]}>Login</button>
             </li>

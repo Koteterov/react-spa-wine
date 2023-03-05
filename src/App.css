@@ -34,19 +34,6 @@ body {
   box-sizing: inherit;
 }
 
-nav,
-footer {
-  background-color: #270000;
-  width: 100%;
-  display: flex;
-  font-size: 1.5rem;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 0;
-  padding: 0rem 4rem 0 3rem;
-  margin: 0%;
-  height: 120px;
-}
 
 ::-webkit-scrollbar {
   width: 10px;
