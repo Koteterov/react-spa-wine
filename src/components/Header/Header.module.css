@@ -1,0 +1,33 @@
+nav ul {
+    margin: 0 0 0 auto;
+}
+
+nav ul li {
+    display: inline-block;
+    margin: 0 0.8em;
+}
+
+nav h1 {
+    color: white;
+}
+
+nav a {
+    text-decoration: none;
+    border-radius: 50%;
+    padding: 0.5em;
+    color: white;
+    text-transform: uppercase;
+}
+
+nav>img {
+    width: 165px;
+    margin-left: 10px;
+    background-image: red;
+}
+
+nav a:hover {
+    font-weight: normal;
+    height: 30px;
+    border-radius: 10%;
+    background-color: #364236;
+}
