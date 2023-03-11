@@ -1,0 +1,123 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.createSection,
+.editSection {
+    margin: auto;
+    width: 680px;
+    margin-top: 1rem;
+    left: 35%;
+    text-align: center;
+    display: flex;
+    color: white;
+    box-shadow: 3px 10px 20px 5px rgba(0, 0, 0, .5);
+}
+
+textarea {
+    resize: none;
+}
+
+.createForm,
+.editForm {
+    width: 720px;
+    padding: 10px 0;
+    background: rgba(72, 39, 13, 0.95);
+    transition: .2s;
+}
+
+.createForm>h2,
+.eeditForm>h2 {
+    font-weight: 350;
+    font-size: 27px;
+    margin-bottom: 0.8em;
+}
+
+#create-btn,
+#edit-btn {
+    border: 1px solid rgba(10, 180, 180, 1);
+    background: rgba(20, 20, 20, .6);
+    font-size: 18px;
+    color: white;
+    margin-top: 20px;
+    padding: 10px 43px;
+    cursor: pointer;
+    transition: .4s;
+    border-radius: 12px;
+}
+
+#create-btn:hover,
+#edit-btn:hover {
+    background: rgba(20, 20, 20, .8);
+    padding: 10px 80px;
+}
+
+.info {
+    width: 250px;
+    background: rgba(20, 20, 20, .95);
+    padding: 55px 5px;
+    border-right: 5px solid rgba(30, 30, 30, .8);
+}
+
+.info>h2 {
+    padding-top: 5.5em;
+    font-weight: 300;
+    font-size: 23px;
+}
+
+.info>p {
+    margin-top: 2px;
+    font-size: 18px;
+}
+
+
+.inputFields,
+#type {
+    margin: 18px 0;
+    font-size: 19px;
+    padding: 10px;
+    width: 270px;
+    border: 1px solid rgba(10, 180, 180, 1);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background: rgba(20, 20, 20, .2);
+    color: white;
+    outline: none;
+}
+
+input.ng-invalid.ng-touched,
+#type.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    border: 2px solid #A94442;
+}
+
+.noBullet {
+    list-style-type: none;
+    padding: 0;
+}
+
+label {
+    display: block;
+    width: 100%;
+    margin-top: 0.6em;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 17px;
+}
+
+label {
+    margin-bottom: -0.5em;
+}
+
+label:nth-of-type(2) {
+    margin-top: 3em;
+}
+
+option {
+    background-color: black;
+}
