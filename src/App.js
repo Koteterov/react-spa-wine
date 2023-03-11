@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 
+import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
-import "./App.css";
+import Register from "./components/Register/Register";
 import NotFound from "./components/NotFound/NotFound";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/user/login" element={<Login />} />
+          <Route path="/user/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
