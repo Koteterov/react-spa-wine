@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import CreateWinePost from "./components/CreateWinePost/CreateWinePost";
 import AllWines from "./components/AllWines/AllWines";
+import MyWines from "./components/MyWines/MyWines";
 import NotFound from "./components/NotFound/NotFound";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/user/register" element={<Register />} />
           <Route path="/wine/create" element={<CreateWinePost />} />
           <Route path="/wine/all" element={<AllWines />} />
+          <Route path="/wine/my-wines" element={<MyWines />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
