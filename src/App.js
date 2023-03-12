@@ -11,6 +11,7 @@ import AllWines from "./components/AllWines/AllWines";
 import MyWines from "./components/MyWines/MyWines";
 import Profile from "./components/Profile/Profile";
 import NotFound from "./components/NotFound/NotFound";
+import Details from "./components/Details/Details";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/wine/all" element={<AllWines />} />
           <Route path="/wine/my-wines" element={<MyWines />} />
           <Route path="/user/profile" element={<Profile />} />
+          <Route path="/wine/details" element={<Details />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

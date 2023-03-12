@@ -1,11 +1,11 @@
 import styles from "./AllWines.module.css";
+import { Link } from "react-router-dom";
 
 export default function AllWines() {
   return (
     <section className={styles["catalog"]} id={styles["catalog"]}>
       <h1>Wine Posts </h1>
       <div>
-
         {/* for pagination
         <div className={styles["catalog"]} id={styles["select-pages"]}>
           Select pages
@@ -46,7 +46,9 @@ export default function AllWines() {
             </div>
           </div>
           <div className={styles["details-btn"]}>
-            <button id={styles["btn"]}>Details</button>
+            <Link to={"/wine/details"}>
+              <button id={styles["btn"]}>Details</button>
+            </Link>
           </div>
         </div>
 
