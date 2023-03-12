@@ -12,18 +12,18 @@ export default function Edit() {
           <h2>Edit Wine</h2>
           <ul className={styles["noBullet"]}>
             <li>
-              <label for="name">Name:</label>
+              <label htmlFor="name">Name:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
                 id="title"
                 name="name"
                 required
-                minlength="3"
+                minLength="3"
               />
             </li>
             <li>
-              <label for="type">Type: Please select from the list!</label>
+              <label htmlFor="type">Type: Please select from the list!</label>
               <select id={styles["type"]} name="type" required>
                 <option value="Red">Red</option>
                 <option value="White">White</option>
@@ -32,18 +32,18 @@ export default function Edit() {
               </select>
             </li>
             <li>
-              <label for="origin">Origin:</label>
+              <label htmlFor="origin">Origin:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
                 id="origin"
                 name="origin"
                 required
-                minlength="3"
+                minLength="3"
               />
             </li>
             <li>
-              <label for="price">Price in EUR:</label>
+              <label htmlFor="price">Price in EUR:</label>
               <input
                 type="number"
                 className={styles["inputFields"]}
@@ -54,7 +54,7 @@ export default function Edit() {
               />
             </li>
             <li>
-              <label for="image">Wine image:</label>
+              <label htmlFor="image">Wine image:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -64,13 +64,13 @@ export default function Edit() {
               />
             </li>
             <li>
-              <label for="description">Wine Description:</label>
+              <label htmlFor="description">Wine Description:</label>
               <textarea
                 id="description"
                 className={styles["inputFields"]}
                 name="description"
                 required
-                minlength="5"
+                minLength="5"
               ></textarea>
             </li>
             <li id={styles["center-btn"]}>

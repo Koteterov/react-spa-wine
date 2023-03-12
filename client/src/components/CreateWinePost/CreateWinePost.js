@@ -12,7 +12,7 @@ export default function CreateWinePost() {
           <h2>Create Post</h2>
           <ul className={styles["noBullet"]}>
             <li>
-              <label for="name">Name:</label>
+              <label htmlFor="name">Name:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -20,11 +20,11 @@ export default function CreateWinePost() {
                 placeholder="Ribeaupierre..."
                 name="name"
                 required
-                minlength="3"
+                minLength="3"
               />
             </li>
             <li>
-              <label for="type">Type: Please select from the list!</label>
+              <label htmlFor="type">Type: Please select from the list!</label>
               <select id={styles["type"]} name="type" required>
                 <option value="Red">Red</option>
                 <option value="White">White</option>
@@ -34,7 +34,7 @@ export default function CreateWinePost() {
             </li>
 
             <li>
-              <label for="origin">Origin:</label>
+              <label htmlFor="origin">Origin:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -45,7 +45,7 @@ export default function CreateWinePost() {
               />
             </li>
             <li>
-              <label for="price">Price in EUR:</label>
+              <label htmlFor="price">Price in EUR:</label>
               <input
                 type="number"
                 className={styles["inputFields"]}
@@ -57,7 +57,7 @@ export default function CreateWinePost() {
               />
             </li>
             <li>
-              <label for="image">Wine image:</label>
+              <label htmlFor="image">Wine image:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -68,14 +68,14 @@ export default function CreateWinePost() {
               />
             </li>
             <li>
-              <label for="description">Your wine description:</label>
+              <label htmlFor="description">Your wine description:</label>
               <textarea
                 id="description"
                 className={styles["inputFields"]}
                 name="description"
                 placeholder="Primary aromas are..."
                 required
-                minlength="5"
+                minLength="5"
               ></textarea>
             </li>
             <li id={styles["center-btn"]}>

@@ -4,7 +4,7 @@ const itemSchema = new Schema({
 
   name: {
     type: String,
-    minlength: [3, 'Name min length is 3 characters']
+    minLength: [3, 'Name min length is 3 characters']
   },
 
   type: {
@@ -18,7 +18,7 @@ const itemSchema = new Schema({
   origin: {
     type: String,
     required: [true, "Origin is required"],
-    minlength: [3, 'Origin min length is 3 characters']
+    minLength: [3, 'Origin min length is 3 characters']
 
   },
 
@@ -40,7 +40,7 @@ const itemSchema = new Schema({
   description: {
     type: String,
     required: [true, "Description is required"],
-    minlength: [5, 'Description min length is 5 characters']
+    minLength: [5, 'Description min length is 5 characters']
 
   },
 

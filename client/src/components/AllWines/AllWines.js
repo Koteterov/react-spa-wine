@@ -2,6 +2,12 @@ import styles from "./AllWines.module.css";
 import { Link } from "react-router-dom";
 
 export default function AllWines() {
+  fetch("http://localhost:3030/data/catalog")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
+
   return (
     <section className={styles["catalog"]} id={styles["catalog"]}>
       <h1>Wine Posts </h1>
@@ -12,9 +18,7 @@ export default function AllWines() {
         </div> */}
 
         <div>
-          <label appWineInfo for="site-search">
-            Search for wines:
-          </label>
+          <label htmlFor="site-search">Search for wines:</label>
         </div>
         <form>
           <input type="search" id="site-search" name="search" />

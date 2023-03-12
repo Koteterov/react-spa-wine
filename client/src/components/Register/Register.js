@@ -13,7 +13,7 @@ export default function Register() {
           <h2>Sign Up</h2>
           <ul className={styles["noBullet"]}>
             <li>
-              <label for="first-name">First Name:</label>
+              <label htmlFor="first-name">First Name:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -24,7 +24,7 @@ export default function Register() {
             </li>
 
             <li>
-              <label for="last-name">Last Name:</label>
+              <label htmlFor="last-name">Last Name:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -34,7 +34,7 @@ export default function Register() {
               />
             </li>
             <li>
-              <label for="email">Email:</label>
+              <label htmlFor="email">Email:</label>
               <input
                 type="text"
                 className={styles["inputFields"]}
@@ -45,7 +45,7 @@ export default function Register() {
             </li>
 
             <li>
-              <label for="password">Password:</label>
+              <label htmlFor="password">Password:</label>
               <input
                 type="password"
                 className={styles["inputFields"]}
@@ -55,7 +55,7 @@ export default function Register() {
               />
             </li>
             <li>
-              <label for="rePassword">Repeat-Password:</label>
+              <label htmlFor="rePassword">Repeat-Password:</label>
               <input
                 type="password"
                 className={styles["inputFields"]}
