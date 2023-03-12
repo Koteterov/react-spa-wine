@@ -10,8 +10,9 @@ import CreateWinePost from "./components/CreateWinePost/CreateWinePost";
 import AllWines from "./components/AllWines/AllWines";
 import MyWines from "./components/MyWines/MyWines";
 import Profile from "./components/Profile/Profile";
-import NotFound from "./components/NotFound/NotFound";
 import Details from "./components/Details/Details";
+import Edit from "./components/Edit/Edit";
+import NotFound from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/wine/my-wines" element={<MyWines />} />
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/wine/details" element={<Details />} />
+          <Route path="/wine/edit" element={<Edit />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
