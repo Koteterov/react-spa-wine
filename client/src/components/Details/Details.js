@@ -22,7 +22,6 @@ export default function Details() {
     });
   }, [wineId, likes]);
 
-
   const hasLikes = (
     <p className={styles["disc"]}>
       People who liked the wine post - {peopleLiked}
@@ -47,9 +46,11 @@ export default function Details() {
               <div className={styles["card_wine"]}>
                 <p className={styles["card-keyword"]}>TYPE: {wine.type}</p>
                 <p className={styles["card-location"]}>ORIGIN: {wine.origin}</p>
-                <p className={styles["card-location"]}>PRICE: {wine.price}</p>
+                <p className={styles["card-location"]}>
+                  PRICE: {Number(wine.price).toFixed(2)}
+                </p>
                 <p className={styles["card-date"]}>
-                  POST DATE: {wine.createdAt}
+                  POST DATE: {wine.createdAt?.slice(0, 10)}
                 </p>
               </div>
 
