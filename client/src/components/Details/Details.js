@@ -2,6 +2,7 @@ import styles from "./Details.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as wineService from "../../services/wineService";
+import LikesSection from "./Likes/Likes";
 
 export default function Details() {
   const { wineId } = useParams();
@@ -22,17 +23,6 @@ export default function Details() {
     });
   }, [wineId, likes]);
 
-  const hasLikes = (
-    <p className={styles["disc"]}>
-      People who liked the wine post - {peopleLiked}
-    </p>
-  );
-
-  const noLikes = (
-    <p className={styles["disc"]}>
-      People who liked the wine post - No likes yet.
-    </p>
-  );
   return (
     <>
       <section id={styles["details-page"]}>
@@ -84,20 +74,7 @@ export default function Details() {
         </div>
       </section>
 
-      <section id={styles["votes"]}>
-        <div className={styles["vote-info"]}>
-          <div className={styles["card_left"]}>
-            <div className={styles["card_datails"]}>
-              <h1>Likes</h1>
-              <div className={styles["card_vote"]}>
-                <p className={styles["PV"]}>Total likes: {likes}</p>
-              </div>
-
-              {likes > 0 ? hasLikes : noLikes}
-            </div>
-          </div>
-        </div>
-      </section>
+      <LikesSection likes={likes} peopleLiked={peopleLiked} />
     </>
   );
 }
