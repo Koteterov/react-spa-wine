@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react";
 import styles from "./AllWines.module.css";
 import { Link } from "react-router-dom";
+import * as wineService from "../../services/wineService";
 
 export default function AllWines() {
-  fetch("http://localhost:3030/data/catalog")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
+  const [wines, setWines] = useState([]);
+
+  useEffect(() => {
+    wineService.getAll().then((data) => {
+      setWines(data.result);
     });
+  }, []);
 
   return (
     <section className={styles["catalog"]} id={styles["catalog"]}>
@@ -40,27 +44,29 @@ export default function AllWines() {
                     </div>
                 </div>
             </ng-container> */}
-
-        <div className={styles["wine"]}>
-          <div className={styles["info-container"]}>
-            <img src="/images/Kalkstein-Riesling.png" alt="wine_picture" />
-            <div className="info">
-              <h2>Name: wwww</h2>
-              <p>Type: eeee</p>
+        {wines.length > 0 ? (
+          wines.map((x) => (
+            <div className={styles["wine"]} key={x._id}>
+              <div className={styles["info-container"]}>
+                <img src={x.image} alt="wine_picture" />
+                <div className="info">
+                  <h2>Name: {x.name}</h2>
+                  <p>Type: {x.type}</p>
+                </div>
+              </div>
+              <div className={styles["details-btn"]}>
+                <Link to={`/wine/details/${x._id}`}>
+                  <button id={styles["btn"]}>Details</button>
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className={styles["details-btn"]}>
-            <Link to={"/wine/details"}>
-              <button id={styles["btn"]}>Details</button>
-            </Link>
-          </div>
-        </div>
-
-        {/* <h2 className={styles["no-record"]}>
-          There are no wines posted yet...
-        </h2>
-
-        <h2 className={styles["no-record"]}>No matches found</h2> */}
+          ))
+        ) : (
+          <h2 className={styles["no-record"]}>
+            There are no wines posted yet...
+          </h2>
+        )}
+        {/* <h2 className={styles["no-record"]}>No matches found</h2> */ }
       </div>
     </section>
   );
