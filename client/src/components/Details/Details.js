@@ -1,29 +1,67 @@
 import styles from "./Details.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as wineService from "../../services/wineService";
 
 export default function Details() {
+  const { wineId } = useParams();
+  const [wine, setWine] = useState({});
+  const [creator, setCreator] = useState({});
+  const [likes, setLikes] = useState([]);
+  const [peopleLiked, setPeopleLiked] = useState("");
+
+  useEffect(() => {
+    wineService.getOne(wineId).then((data) => {
+      setWine(data);
+      setCreator(data._ownerId);
+      setLikes(data.likesList.length);
+      let people = data.likesList.map((x) => {
+        return [x.firstName, x.lastName].join(" ");
+      });
+      setPeopleLiked(people.join(", "));
+    });
+  }, [wineId, likes]);
+
+
+  const hasLikes = (
+    <p className={styles["disc"]}>
+      People who liked the wine post - {peopleLiked}
+    </p>
+  );
+
+  const noLikes = (
+    <p className={styles["disc"]}>
+      People who liked the wine post - No likes yet.
+    </p>
+  );
   return (
     <>
       <section id={styles["details-page"]}>
         <div className={styles["main_card"]}>
           <div className={styles["card_left"]}>
             <div className={styles["card_datails"]}>
-              <h1>Name: eee</h1>
-              <h3>Created by: ...</h3>
+              <h1>Name: {wine.name}</h1>
+              <h3>
+                Created by: {creator.firstName} {creator.lastName}
+              </h3>
               <div className={styles["card_wine"]}>
-                <p className={styles["card-keyword"]}>TYPE: ...</p>
-                <p className={styles["card-location"]}>ORIGIN: ...</p>
-                <p className={styles["card-location"]}>PRICE: ...</p>
-                <p className={styles["card-date"]}>POST DATE: ...</p>
+                <p className={styles["card-keyword"]}>TYPE: {wine.type}</p>
+                <p className={styles["card-location"]}>ORIGIN: {wine.origin}</p>
+                <p className={styles["card-location"]}>PRICE: {wine.price}</p>
+                <p className={styles["card-date"]}>
+                  POST DATE: {wine.createdAt}
+                </p>
               </div>
 
-              <p className={styles["disc"]}>WINE DESCRIPTION: ...</p>
+              <p className={styles["disc"]}>
+                WINE DESCRIPTION: {wine.description}
+              </p>
 
               {/* <!-- If there is no registered user, no buttons displayed--> */}
               <div className={styles["social-btn"]}>
                 {/* <!-- Only for registered user and author of the post --> */}
 
-                <Link to={"/wine/edit"}>
+                <Link to={`/wine/edit/${wine._id}`}>
                   <button className={styles["edit-btn"]}>Edit</button>
                 </Link>
 
@@ -40,7 +78,7 @@ export default function Details() {
             </div>
           </div>
           <div className={styles["card_right"]}>
-            <img src="/images/Kalkstein-Riesling.png" alt="wine_image" />
+            <img src={wine.image} alt="wine_image" />
           </div>
         </div>
       </section>
@@ -51,16 +89,10 @@ export default function Details() {
             <div className={styles["card_datails"]}>
               <h1>Likes</h1>
               <div className={styles["card_vote"]}>
-                <p className={styles["PV"]}>Total likes: ...</p>
+                <p className={styles["PV"]}>Total likes: {likes}</p>
               </div>
-              {/* <!-- if there are likes --> */}
-              <p className={styles["disc"]}>
-                People who liked the wine post - ...
-              </p>
-              {/* <!-- No Likes --> */}
-              <p className={styles["disc"]}>
-                People who liked the wine post - No likes yet.
-              </p>
+
+              {likes > 0 ? hasLikes : noLikes}
             </div>
           </div>
         </div>

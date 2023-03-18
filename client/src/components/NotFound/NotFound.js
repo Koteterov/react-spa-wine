@@ -10,7 +10,7 @@ export default function NotFound() {
         <span className={styles["error-num"]}>4</span>
 
         <p className={styles["sub-text"]}>
-          Something went wrong. We're <span class="italic">looking</span> to see
+          Something went wrong. We're <span className="italic">looking</span> to see
           what happened.
         </p>
         <p>

@@ -28,8 +28,8 @@ function App() {
           <Route path="/wine/all" element={<AllWines />} />
           <Route path="/wine/my-wines" element={<MyWines />} />
           <Route path="/user/profile" element={<Profile />} />
-          <Route path="/wine/details" element={<Details />} />
-          <Route path="/wine/edit" element={<Edit />} />
+          <Route path="/wine/details/:wineId" element={<Details />} />
+          <Route path="/wine/edit/:wineId" element={<Edit />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

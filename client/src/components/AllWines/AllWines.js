@@ -9,6 +9,7 @@ export default function AllWines() {
   useEffect(() => {
     wineService.getAll().then((data) => {
       setWines(data.result);
+      console.log(data);
     });
   }, []);
 
