@@ -24,7 +24,7 @@ export default function Header() {
           <Link to="/user/profile">Profile</Link>
         </li>
         <li>
-          <Link to="">Logout</Link>
+          <Link to="/user/logout">Logout</Link>
         </li>
         <li>
           <Link to="/user/register">Register</Link>

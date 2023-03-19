@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
+import Logout from "./components/Logout/Logout";
 import CreateWinePost from "./components/CreateWinePost/CreateWinePost";
 import AllWines from "./components/AllWines/AllWines";
 import MyWines from "./components/MyWines/MyWines";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/user/register" element={<Register />} />
+          <Route path="/user/logout" element={<Logout />} />
           <Route path="/wine/create" element={<CreateWinePost />} />
           <Route path="/wine/all" element={<AllWines />} />
           <Route path="/wine/my-wines" element={<MyWines />} />
