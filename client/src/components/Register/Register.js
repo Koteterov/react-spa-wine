@@ -1,6 +1,36 @@
 import styles from "./Register.module.css";
+import * as userService from "../../services/userService";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const navigate = useNavigate();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const { firstName, lastName, email, password, rePassword } =
+      Object.fromEntries(new FormData(e.target));
+
+      if (password !== rePassword) {
+        console.log("pass !==");
+        return;
+      }
+
+    userService
+      .register(firstName, lastName, email, password)
+      .then((userData) => {
+        if (userData.accessToken) {
+          navigate("/wine/all");
+        }
+        if (userData.message) {
+          console.log(userData.message);
+        }
+      })
+      .catch(() => {
+        navigate("/404");
+      });
+  };
+
   return (
     <section id="register-page">
       <div className={styles["signupSection"]}>
@@ -9,7 +39,7 @@ export default function Register() {
             Please sing up to discover new wines and share your preference.
           </h2>
         </div>
-        <form className={styles["signupForm"]}>
+        <form className={styles["signupForm"]} onSubmit={onSubmit}>
           <h2>Sign Up</h2>
           <ul className={styles["noBullet"]}>
             <li>
@@ -20,6 +50,7 @@ export default function Register() {
                 id="first-name"
                 name="firstName"
                 placeholder="Peter"
+                required
               />
             </li>
 
@@ -31,6 +62,7 @@ export default function Register() {
                 id="last-name"
                 name="lastName"
                 placeholder="Johnson"
+                required
               />
             </li>
             <li>
@@ -41,6 +73,7 @@ export default function Register() {
                 id="email"
                 name="email"
                 placeholder="alex@gmail.com"
+                required
               />
             </li>
 
@@ -52,6 +85,7 @@ export default function Register() {
                 id="password"
                 name="password"
                 placeholder="******"
+                required
               />
             </li>
             <li>
@@ -62,6 +96,7 @@ export default function Register() {
                 id="rePassword"
                 name="rePassword"
                 placeholder="******"
+                required
               />
             </li>
             <li id={styles["center-btn"]}>
