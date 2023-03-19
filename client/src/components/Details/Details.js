@@ -12,15 +12,22 @@ export default function Details() {
   const [peopleLiked, setPeopleLiked] = useState("");
 
   useEffect(() => {
-    wineService.getOne(wineId).then((data) => {
+    wineService.getOne(wineId)
+    .then((data) => {
       setWine(data);
       setCreator(data._ownerId);
       setLikes(data.likesList.length);
+
       let people = data.likesList.map((x) => {
         return [x.firstName, x.lastName].join(" ");
       });
+
       setPeopleLiked(people.join(", "));
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+  });
+
   }, [wineId, likes]);
 
   return (

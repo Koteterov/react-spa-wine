@@ -7,10 +7,14 @@ export default function AllWines() {
   const [wines, setWines] = useState([]);
 
   useEffect(() => {
-    wineService.getAll().then((data) => {
+    wineService.getAll()
+    .then((data) => {
       setWines(data.result);
-      console.log(data);
-    });
+    })
+    .catch((err) => {
+      console.log(err);
+  });
+
   }, []);
 
   return (
