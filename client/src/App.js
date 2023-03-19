@@ -15,28 +15,42 @@ import Details from "./components/Details/Details";
 import Edit from "./components/Edit/Edit";
 import NotFound from "./components/NotFound/NotFound";
 
+import * as userService from "./services/userService";
+import { useEffect, useState } from "react";
+import { UserContext } from "./contexts/userContext";
+
+
 function App() {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    userService.getProfile().then((profile) => {
+      setUser(profile);
+    });
+  }, []);
+
   return (
-    <>
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/user/login" element={<Login />} />
-          <Route path="/user/register" element={<Register />} />
-          <Route path="/user/logout" element={<Logout />} />
-          <Route path="/wine/create" element={<CreateWinePost />} />
-          <Route path="/wine/all" element={<AllWines />} />
-          <Route path="/wine/my-wines" element={<MyWines />} />
-          <Route path="/user/profile" element={<Profile />} />
-          <Route path="/wine/details/:wineId" element={<Details />} />
-          <Route path="/wine/edit/:wineId" element={<Edit />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
-    </>
+    
+      <UserContext.Provider value={{ user }}>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/user/login" element={<Login />} />
+            <Route path="/user/register" element={<Register />} />
+            <Route path="/user/logout" element={<Logout />} />
+            <Route path="/wine/create" element={<CreateWinePost />} />
+            <Route path="/wine/all" element={<AllWines />} />
+            <Route path="/wine/my-wines" element={<MyWines />} />
+            <Route path="/user/profile" element={<Profile />} />
+            <Route path="/wine/details/:wineId" element={<Details />} />
+            <Route path="/wine/edit/:wineId" element={<Edit />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </UserContext.Provider>
+    
   );
 }
 

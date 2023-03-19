@@ -1,11 +1,13 @@
 const request = async (method, url, data) => {
-  
   try {
     let headers = {};
     let buildRequest;
 
     if (method === "GET") {
-      buildRequest = fetch(url, { headers });
+      buildRequest = fetch(url, {
+        headers,
+        credentials: "include",
+      });
     } else {
       buildRequest = fetch(url, {
         method,
@@ -20,7 +22,6 @@ const request = async (method, url, data) => {
     const response = await buildRequest;
     const result = await response.json();
     return result;
-
   } catch (error) {
     console.log(error);
   }

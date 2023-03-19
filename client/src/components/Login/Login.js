@@ -10,8 +10,7 @@ export default function Login() {
 
     const { email, password } = Object.fromEntries(new FormData(e.target));
 
-    userService
-      .login(email, password)
+    userService.login(email, password)
       .then((userData) => {
         if (userData.accessToken) {
           navigate("/wine/all");

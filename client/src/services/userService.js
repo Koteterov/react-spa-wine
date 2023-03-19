@@ -26,3 +26,7 @@ export const register = (firstName, lastName, email, password) => {
     password,
   });
 };
+
+export const getProfile = () => {
+    return request.get(`${baseURL}/profile`)
+}

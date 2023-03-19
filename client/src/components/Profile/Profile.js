@@ -1,7 +1,15 @@
 import styles from "./Profile.module.css";
 import { Link } from "react-router-dom";
+import { useContext, } from "react";
+
+// import * as userService from "../../services/userService";
+import { UserContext } from "../../contexts/userContext";
 
 export default function Profile() {
+  const { user } = useContext(UserContext);
+
+
+
   return (
     <>
       <section id={styles["user"]}>
@@ -9,7 +17,7 @@ export default function Profile() {
           <div className={styles["user-logo"]}>
             <img src="/images/user-logo.webp" alt="user_logo" />
           </div>
-          <h1 className={styles["user-email"]}>email.....</h1>
+          <h1 className={styles["user-email"]}>{user.firstName} {user.lastName} - {user.email}</h1>
           <h2 className={styles["created-blogs-count"]}>
             Total Created Wines: ....
           </h2>
