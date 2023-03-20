@@ -28,9 +28,12 @@ function App() {
     });
   }, []);
 
+function updateNav(userData) {
+  setUser(userData)
+}
   return (
     
-      <UserContext.Provider value={{ user }}>
+      <UserContext.Provider value={{ user, updateNav }}>
         <Header />
         <main>
           <Routes>

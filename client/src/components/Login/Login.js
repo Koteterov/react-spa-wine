@@ -1,18 +1,23 @@
 import styles from "./Login.module.css";
 import * as userService from "../../services/userService";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/userContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { updateNav } = useContext(UserContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     const { email, password } = Object.fromEntries(new FormData(e.target));
 
-    userService.login(email, password)
+    userService
+      .login(email, password)
       .then((userData) => {
         if (userData.accessToken) {
+          updateNav(userData);
           navigate("/wine/all");
         }
         if (userData.message) {
