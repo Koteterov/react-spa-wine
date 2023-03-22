@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
 
 export default function Header() {
-  
   const { user } = useContext(UserContext);
 
   return (
@@ -22,13 +21,15 @@ export default function Header() {
         {user._id ? (
           <>
             <li>
-              <Link to="/user/profile">Profile</Link>
-            </li>
-            <li>
-              <Link to="/wine/my-wines">My Wines</Link>
+              <Link to="/wine/my-wines">
+                Wines of {user.email.slice(0, 5)}...
+              </Link>
             </li>
             <li>
               <Link to="/wine/create">Create Post</Link>
+            </li>
+            <li>
+              <Link to="/user/profile">Profile</Link>
             </li>
             <li>
               <Link to="/user/logout">Logout</Link>
