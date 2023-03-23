@@ -5,26 +5,23 @@ import { useEffect, useState } from "react";
 import * as userService from "../../services/userService";
 import * as wineService from "../../services/wineService";
 
-import { useContext } from "react";
-import { UserContext } from "../../contexts/userContext";
+// import { useContext } from "react";
+// import { UserContext } from "../../contexts/userContext";
 
 export default function Profile() {
-  const { user } = useContext(UserContext);
+  // const { user } = useContext(UserContext);
 
   const [userData, setUserData] = useState({});
   const [myWines, setMyWines] = useState([]);
   const [myLikes, setMyLikes] = useState([]);
 
+
   useEffect(() => {
     userService.getProfile().then((profile) => {
       setUserData(profile);
     });
-  }, []);
-
-  useEffect(() => {
-    if (user._id) {
-      wineService
-        .getMy(user._id)
+    if (userData._id) {
+      wineService.getMy(userData._id)
         .then((myWines) => {
           setMyWines(myWines);
         })
@@ -32,8 +29,7 @@ export default function Profile() {
           console.log(error);
         });
 
-      wineService
-        .getMyLikes(user._id)
+      wineService.getMyLikes(userData._id)
         .then((myLikes) => {
           setMyLikes(myLikes);
         })
@@ -41,7 +37,7 @@ export default function Profile() {
           console.log(error);
         });
     }
-  }, [user._id]);
+  }, [userData._id]);
 
   return (
     <>
