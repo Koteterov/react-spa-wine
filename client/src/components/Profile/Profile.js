@@ -15,22 +15,22 @@ export default function Profile() {
   const [myWines, setMyWines] = useState([]);
   const [myLikes, setMyLikes] = useState([]);
 
-
   useEffect(() => {
-    userService.getProfile().then((profile) => {
-      setUserData(profile);
-    });
-    if (userData._id) {
-      wineService.getMy(userData._id)
-        .then((myWines) => {
-          setMyWines(myWines);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    userService.getProfile()
+      .then((profile) => {
+        setUserData(profile);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-      wineService.getMyLikes(userData._id)
-        .then((myLikes) => {
+    if (userData._id) {
+      Promise.all([
+        wineService.getMy(userData._id),
+        wineService.getMyLikes(userData._id),
+      ])
+        .then(([myWines, myLikes]) => {
+          setMyWines(myWines);
           setMyLikes(myLikes);
         })
         .catch((error) => {
