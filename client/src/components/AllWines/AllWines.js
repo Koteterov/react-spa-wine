@@ -7,14 +7,14 @@ export default function AllWines() {
   const [wines, setWines] = useState([]);
 
   useEffect(() => {
-    wineService.getAll()
-    .then((data) => {
-      setWines(data.result);
-    })
-    .catch((err) => {
-      console.log(err);
-  });
-
+    wineService
+      .getAll()
+      .then((data) => {
+        setWines(data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -27,7 +27,9 @@ export default function AllWines() {
         </div> */}
 
         <div>
-          <label htmlFor="site-search">Search for wines:</label>
+          <label className={styles["label"]} htmlFor="site-search">
+            Search for wines:
+          </label>
         </div>
         <form>
           <input type="search" id="site-search" name="search" />
@@ -35,20 +37,6 @@ export default function AllWines() {
       </div>
 
       <div className={styles["container"]}>
-        {/* <ng-container *ngIf="wineList.length > 0">
-                <div appWineInfo className="wine" *ngFor="let wine of wineList">
-                    <div className="info-container">
-                        <img src={{wine.image}}>
-                        <div className="info">
-                            <h2>Name: {{wine.name}}</h2>
-                            <p>Type: {{wine.type}}</p>
-                        </div>
-                    </div>
-                    <div className="details-btn">
-                        <button appWineInfo [routerLink]="['/wine/details', wine._id]" id="btn">Details</button>
-                    </div>
-                </div>
-            </ng-container> */}
         {wines.length > 0 ? (
           wines.map((x) => (
             <div className={styles["wine"]} key={x._id}>
@@ -71,7 +59,7 @@ export default function AllWines() {
             There are no wines posted yet...
           </h2>
         )}
-        {/* <h2 className={styles["no-record"]}>No matches found</h2> */ }
+        {/* <h2 className={styles["no-record"]}>No matches found</h2> */}
       </div>
     </section>
   );

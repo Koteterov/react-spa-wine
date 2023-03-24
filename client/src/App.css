@@ -34,25 +34,6 @@ body {
   box-sizing: inherit;
 }
 
-
-::-webkit-scrollbar {
-  width: 10px;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.01);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #4f2e14;
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #ad0d20;
-}
-
 a {
   text-decoration: none;
 }
