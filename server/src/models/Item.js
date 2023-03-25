@@ -31,7 +31,7 @@ const itemSchema = new Schema({
     type: String,
     required: [true, "Image is required"],
     validate: {
-      validator: /^https?:\/\//i,
+      validator: /(^https?:\/\/)|(^\/images)/i,
       message: "Invalid image url",
     },
 
