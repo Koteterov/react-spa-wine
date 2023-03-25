@@ -16,10 +16,10 @@ export default function Details() {
   const [creator, setCreator] = useState({});
   const [likes, setLikes] = useState([]);
   const [peopleLiked, setPeopleLiked] = useState("");
+  const [hasLiked, setHasLiked] = useState();
 
   const hasUser = !!user._id;
   const isAuthor = user._id === creator._id;
-  const hasLiked = true;
 
   useEffect(() => {
     wineService
@@ -29,24 +29,46 @@ export default function Details() {
         setCreator(data._ownerId);
         setLikes(data.likesList.length);
 
+        let hasAlreadyLiked = data.likesList
+        .find((x) => x._id === user._id)?._id;
+
+        setHasLiked(hasAlreadyLiked === user._id);
+
         let people = data.likesList.map((x) => {
           return [x.firstName, x.lastName].join(" ");
         });
-
         setPeopleLiked(people.join(", "));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [wineId, likes]);
+  }, [wineId, user._id, likes, hasLiked]);
+
+  const likeHandler = () => {
+    wineService.likeWine(wineId)
+      .then(() => {
+        setHasLiked(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const unlikeHandler = () => {
+    wineService.unlikeWine(wineId)
+      .then(() => {
+        setHasLiked(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const deleteHandler = () => {
     const confirm = window.confirm(
       "Are you sure you want to confirm this wine?"
     );
     if (confirm) {
-      wineService
-        .deleteWine(wineId)
+      wineService.deleteWine(wineId)
         .then(() => {
           navigate("/wine/all");
         })
@@ -100,11 +122,19 @@ export default function Details() {
                   {/* If not author of the post */}
                   {!isAuthor && (
                     <>
-                      {hasLiked ? (
-                        <button className={styles["vote-up"]}>Like +1</button>
+                      {!hasLiked ? (
+                        <button
+                          className={styles["vote-up"]}
+                          onClick={likeHandler}
+                        >
+                          Like +1
+                        </button>
                       ) : (
                         <>
-                          <button className={styles["vote-down"]}>
+                          <button
+                            className={styles["vote-down"]}
+                            onClick={unlikeHandler}
+                          >
                             Unlike -1
                           </button>
                           <span className={styles["thanks-for-vote"]}>
