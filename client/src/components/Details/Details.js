@@ -1,34 +1,60 @@
 import styles from "./Details.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/userContext";
+
 import * as wineService from "../../services/wineService";
 import LikesSection from "./Likes/Likes";
 
 export default function Details() {
+  const navigate = useNavigate();
+
+  const { user } = useContext(UserContext);
   const { wineId } = useParams();
   const [wine, setWine] = useState({});
   const [creator, setCreator] = useState({});
   const [likes, setLikes] = useState([]);
   const [peopleLiked, setPeopleLiked] = useState("");
 
+  const hasUser = !!user._id;
+  const isAuthor = user._id === creator._id;
+  const hasLiked = true;
+
   useEffect(() => {
-    wineService.getOne(wineId)
-    .then((data) => {
-      setWine(data);
-      setCreator(data._ownerId);
-      setLikes(data.likesList.length);
+    wineService
+      .getOne(wineId)
+      .then((data) => {
+        setWine(data);
+        setCreator(data._ownerId);
+        setLikes(data.likesList.length);
 
-      let people = data.likesList.map((x) => {
-        return [x.firstName, x.lastName].join(" ");
+        let people = data.likesList.map((x) => {
+          return [x.firstName, x.lastName].join(" ");
+        });
+
+        setPeopleLiked(people.join(", "));
+      })
+      .catch((err) => {
+        console.log(err);
       });
-
-      setPeopleLiked(people.join(", "));
-    })
-    .catch((err) => {
-      console.log(err);
-  });
-
   }, [wineId, likes]);
+
+  const deleteHandler = () => {
+    const confirm = window.confirm(
+      "Are you sure you want to confirm this wine?"
+    );
+    if (confirm) {
+      wineService
+        .deleteWine(wineId)
+        .then(() => {
+          navigate("/wine/all");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <>
@@ -55,24 +81,41 @@ export default function Details() {
                 WINE DESCRIPTION: {wine.description}
               </p>
 
-              {/* <!-- If there is no registered user, no buttons displayed--> */}
-              <div className={styles["social-btn"]}>
-                {/* <!-- Only for registered user and author of the post --> */}
-
-                <Link to={`/wine/edit/${wine._id}`}>
-                  <button className={styles["edit-btn"]}>Edit</button>
-                </Link>
-
-                <button className={styles["del-btn"]}>Delete</button>
-
-                <button className={styles["vote-up"]}>Like +1</button>
-
-                {/* <!-- logged in user who has already liked--> */}
-                <button className={styles["vote-down"]}>Unlike -1</button>
-                <span className={styles["thanks-for-vote"]}>
-                  Thanks For Liking
-                </span>
-              </div>
+              {hasUser && (
+                <div className={styles["social-btn"]}>
+                  {/* <!-- Only for registered user and author of the post --> */}
+                  {isAuthor && (
+                    <>
+                      <Link to={`/wine/edit/${wine._id}`}>
+                        <button className={styles["edit-btn"]}>Edit</button>
+                      </Link>
+                      <button
+                        className={styles["del-btn"]}
+                        onClick={deleteHandler}
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                  {/* If not author of the post */}
+                  {!isAuthor && (
+                    <>
+                      {hasLiked ? (
+                        <button className={styles["vote-up"]}>Like +1</button>
+                      ) : (
+                        <>
+                          <button className={styles["vote-down"]}>
+                            Unlike -1
+                          </button>
+                          <span className={styles["thanks-for-vote"]}>
+                            Thanks For Liking
+                          </span>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           <div className={styles["card_right"]}>
