@@ -22,8 +22,7 @@ export default function Details() {
   const isAuthor = user._id === creator._id;
 
   useEffect(() => {
-    wineService
-      .getOne(wineId)
+    wineService.getOne(wineId)
       .then((data) => {
         setWine(data);
         setCreator(data._ownerId);

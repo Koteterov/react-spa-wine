@@ -17,3 +17,4 @@ export const unlikeWine = (wineId) => request.get(`${baseURL}/unlike/${wineId}`)
 
 export const deleteWine = (wineId) => request.del(`${baseURL}/${wineId}`);
 
+export const editWine = (wineId, data) => request.put(`${baseURL}/${wineId}`, data)

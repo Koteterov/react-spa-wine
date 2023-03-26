@@ -1,6 +1,47 @@
 import styles from "./Edit.module.css";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
+import * as wineService from "../../services/wineService";
 
 export default function Edit() {
+  const { wineId } = useParams();
+  const navigate = useNavigate();
+  const [values, setValues] = useState({
+    name: "",
+    type: "",
+    origin: "",
+    price: "",
+    image: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    wineService.getOne(wineId)
+      .then((data) => {
+        setValues(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [wineId]);
+
+  const onChangeHandler = (e) => {
+    setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+
+    wineService.editWine(wineId, values)
+      .then(() => {
+        navigate(`/wine/details/${wineId}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <section id={styles["edit-page"]}>
       <div className={styles["editSection"]}>
@@ -8,7 +49,7 @@ export default function Edit() {
           <h2>Edit your own wine!</h2>
         </div>
 
-        <form className={styles["editForm"]}>
+        <form className={styles["editForm"]} onSubmit={onSubmitHandler}>
           <h2>Edit Wine</h2>
           <ul className={styles["noBullet"]}>
             <li>
@@ -20,11 +61,19 @@ export default function Edit() {
                 name="name"
                 required
                 minLength="3"
+                value={values.name}
+                onChange={onChangeHandler}
               />
             </li>
             <li>
               <label htmlFor="type">Type: Please select from the list!</label>
-              <select id={styles["type"]} name="type" required>
+              <select
+                id={styles["type"]}
+                name="type"
+                required
+                value={values.type}
+                onChange={onChangeHandler}
+              >
                 <option value="Red">Red</option>
                 <option value="White">White</option>
                 <option value="Rose">Rose</option>
@@ -40,6 +89,8 @@ export default function Edit() {
                 name="origin"
                 required
                 minLength="3"
+                value={values.origin}
+                onChange={onChangeHandler}
               />
             </li>
             <li>
@@ -49,8 +100,10 @@ export default function Edit() {
                 className={styles["inputFields"]}
                 id="price"
                 name="price"
-                min="0.01"
+                // min="0.01"
                 required
+                value={values.price}
+                onChange={onChangeHandler}
               />
             </li>
             <li>
@@ -61,6 +114,8 @@ export default function Edit() {
                 id="image"
                 name="image"
                 required
+                value={values.image}
+                onChange={onChangeHandler}
               />
             </li>
             <li>
@@ -71,6 +126,8 @@ export default function Edit() {
                 name="description"
                 required
                 minLength="5"
+                value={values.description}
+                onChange={onChangeHandler}
               ></textarea>
             </li>
             <li id={styles["center-btn"]}>
