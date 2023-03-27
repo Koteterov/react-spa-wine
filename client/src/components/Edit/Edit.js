@@ -8,25 +8,18 @@ import Error from "../Error/Error";
 export default function Edit() {
   const { wineId } = useParams();
   const navigate = useNavigate();
-  const [values, setValues] = useState({
+
+  const formData = {
     name: "",
     type: "",
     origin: "",
     price: "",
     image: "",
     description: "",
-  });
+  };
+  const [values, setValues] = useState(formData);
 
-  const [formErrors, setFormErros] = useState({
-    name: "",
-    type: "",
-    origin: "",
-    price: "",
-    image: "",
-    description: "",
-  });
-
-  const [disableButton, setDisableButton] = useState(false);
+  const [formErrors, setFormErros] = useState(formData);
 
   useEffect(() => {
     wineService
@@ -45,39 +38,60 @@ export default function Edit() {
 
   const formValidate = (e) => {
     const value = e.target.value;
-    const errors = {};
     const urlPattern = /(^https?:\/\/)|(^\/images)/i;
 
     if (e.target.name === "name" && value.length < 3) {
-      errors.name = "Name must be at leat 3 letters long!";
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "Name must be at leat 3 letters long!",
+      }));
+    } else if (e.target.name === "name" && value.length >= 3) {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
     }
 
     if (e.target.name === "origin" && value.length < 3) {
-      errors.origin = "Origin must be at leat 3 letters long!";
-    }
-    if (e.target.name === "price" && (value < 0 || value === "")) {
-      errors.price = "Price must be a positive number!";
-    }
-    if (e.target.name === "image" && !urlPattern.test(value)) {
-      errors.image = "The field must be a valid url!";
-    }
-    if (e.target.name === "description" && value.length < 5) {
-      errors.description = "Description must be at leat 5 letters!";
-    }
-    if (
-      errors.name ||
-      errors.origin ||
-      errors.price ||
-      errors.image ||
-      errors.description
-    ) {
-      setDisableButton(true);
-    } else {
-      setDisableButton(false);
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "Origin must be at leat 3 letters long!",
+      }));
+    } else if (e.target.name === "origin" && value.length >= 3) {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
     }
 
-    setFormErros(errors);
+    if (e.target.name === "price" && (value < 0 || value === "")) {
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "Price must be a positive number!",
+      }));
+    } else if (e.target.name === "price" && value > 0) {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
+    }
+
+    if (e.target.name === "image" && !urlPattern.test(value)) {
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "The field must be a valid url!",
+      }));
+    } else if (e.target.name === "image" && urlPattern.test(value)) {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
+    }
+
+    if (e.target.name === "description" && value.length < 5) {
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "Description must be at leat 5 letters!",
+      }));
+    } else if (e.target.name === "description" && value.length >= 5) {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
+    }
   };
+
+  let enableButton =
+    formErrors.name === "" &&
+    formErrors.origin === "" &&
+    formErrors.price === "" &&
+    formErrors.image === "" &&
+    formErrors.description === "";
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -199,7 +213,7 @@ export default function Edit() {
               )}
             </li>
             <li id={styles["center-btn"]}>
-              <button id={styles["edit-btn"]} disabled={disableButton}>
+              <button id={styles["edit-btn"]} disabled={!enableButton}>
                 Edit
               </button>
             </li>
