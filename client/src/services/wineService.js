@@ -13,8 +13,12 @@ export const getMyLikes = (userId) =>
 
 export const likeWine = (wineId) => request.get(`${baseURL}/like/${wineId}`);
 
-export const unlikeWine = (wineId) => request.get(`${baseURL}/unlike/${wineId}`);
+export const unlikeWine = (wineId) =>
+  request.get(`${baseURL}/unlike/${wineId}`);
 
 export const deleteWine = (wineId) => request.del(`${baseURL}/${wineId}`);
 
-export const editWine = (wineId, data) => request.put(`${baseURL}/${wineId}`, data)
+export const createWine = (data) => request.post(baseURL, data);
+
+export const editWine = (wineId, data) =>
+  request.put(`${baseURL}/${wineId}`, data);
