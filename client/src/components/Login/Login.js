@@ -1,8 +1,8 @@
 import styles from "./Login.module.css";
-import * as userService from "../../services/userService";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
+import * as userService from "../../services/userService";
 
 export default function Login() {
   const navigate = useNavigate();
