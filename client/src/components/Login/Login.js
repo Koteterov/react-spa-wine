@@ -1,20 +1,55 @@
 import styles from "./Login.module.css";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { useState } from "react";
 import { UserContext } from "../../contexts/userContext";
 import * as userService from "../../services/userService";
+import Error from "../Error/Error";
 
 export default function Login() {
   const navigate = useNavigate();
   const { updateNav } = useContext(UserContext);
+  const formData = {
+    email: "",
+    password: "",
+  };
+
+  const [values, setValues] = useState(formData);
+  const [formErrors, setFormErros] = useState(formData);
+
+  const onChangeHandler = (e) => {
+    setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
+  };
+
+  const formValidate = (e) => {
+    const value = e.target.value;
+
+    if (e.target.name === "email" && value === "") {
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "Email is required!",
+      }));
+    } else if (e.target.name === "email" && value !== "") {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
+    }
+
+    if (e.target.name === "password" && value === "") {
+      setFormErros((state) => ({
+        ...state,
+        [e.target.name]: "Password is required!",
+      }));
+    } else if (e.target.name === "password" && value !== "") {
+      setFormErros((state) => ({ ...state, [e.target.name]: "" }));
+    }
+  };
+
+  let enableButton = formErrors.email === "" && formErrors.password === "";
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password } = Object.fromEntries(new FormData(e.target));
-
     userService
-      .login(email, password)
+      .login(values.email, values.password)
       .then((userData) => {
         if (userData.accessToken) {
           updateNav(userData);
@@ -49,7 +84,13 @@ export default function Login() {
                 name="email"
                 placeholder="alex@gmail.com"
                 required
+                value={values.email}
+                onChange={onChangeHandler}
+                onBlur={formValidate}
               />
+              {formErrors.email && (
+                <Error formErrors={formErrors.email}></Error>
+              )}
             </li>
             <li>
               <label htmlFor="password">Password:</label>
@@ -60,10 +101,18 @@ export default function Login() {
                 name="password"
                 placeholder="*******"
                 required
+                value={values.password}
+                onChange={onChangeHandler}
+                onBlur={formValidate}
               />
+              {formErrors.password && (
+                <Error formErrors={formErrors.password}></Error>
+              )}
             </li>
             <li className={styles["center-btn"]}>
-              <button className={styles["login-btn"]}>Login</button>
+              <button className={styles["login-btn"]} disabled={!enableButton}>
+                Login
+              </button>
             </li>
           </ul>
         </form>
