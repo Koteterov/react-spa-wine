@@ -3,12 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { useState } from "react";
 import { UserContext } from "../../contexts/userContext";
+import { ServerMessageContext } from "../../contexts/serverMessageContext";
 import * as userService from "../../services/userService";
 import Error from "../Error/Error";
+import ServerMessage from "../ServerMessage/ServerMessage";
 
 export default function Login() {
   const navigate = useNavigate();
   const { updateNav } = useContext(UserContext);
+  const { serverMessage } = useContext(ServerMessageContext);
+  const [message, setMessage] = useState({
+    success: "",
+    error: "",
+  });
+
   const formData = {
     email: "",
     password: "",
@@ -52,11 +60,15 @@ export default function Login() {
       .login(values.email, values.password)
       .then((userData) => {
         if (userData.accessToken) {
+          serverMessage.success = "Logged in successfully";
+          // setMessage({ success: "Logged in successfully"});
           updateNav(userData);
           navigate("/wine/all");
-        }
-        if (userData.message) {
-          console.log(userData.message);
+        } else {
+          setMessage({ error: userData.message });
+          setTimeout(() => {
+            setMessage()?.clear();
+          }, 2000);
         }
       })
       .catch((error) => {
@@ -65,8 +77,10 @@ export default function Login() {
       });
   };
 
+
   return (
     <section id="login-page">
+      {message && <ServerMessage message={message} />}
       <div className={styles["loginSection"]}>
         <div className={styles["info"]}>
           <h2>Welcome, again!</h2>

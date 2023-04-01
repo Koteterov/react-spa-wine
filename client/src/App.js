@@ -15,28 +15,31 @@ import Edit from "./components/Edit/Edit";
 import NotFound from "./components/NotFound/NotFound";
 
 import { UserProvider } from "./contexts/userContext";
+import { ServerMessageProvider } from "./contexts/serverMessageContext";
 
 function App() {
   return (
     <UserProvider>
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/user/login" element={<Login />} />
-          <Route path="/user/register" element={<Register />} />
-          <Route path="/user/logout" element={<Logout />} />
-          <Route path="/wine/create" element={<CreateWinePost />} />
-          <Route path="/wine/all" element={<AllWines />} />
-          <Route path="/wine/my-wines" element={<MyWines />} />
-          <Route path="/user/profile" element={<Profile />} />
-          <Route path="/wine/details/:wineId" element={<Details />} />
-          <Route path="/wine/edit/:wineId" element={<Edit />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <Footer />
+      <ServerMessageProvider>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/user/login" element={<Login />} />
+            <Route path="/user/register" element={<Register />} />
+            <Route path="/user/logout" element={<Logout />} />
+            <Route path="/wine/create" element={<CreateWinePost />} />
+            <Route path="/wine/all" element={<AllWines />} />
+            <Route path="/wine/my-wines" element={<MyWines />} />
+            <Route path="/user/profile" element={<Profile />} />
+            <Route path="/wine/details/:wineId" element={<Details />} />
+            <Route path="/wine/edit/:wineId" element={<Edit />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <Footer />
+      </ServerMessageProvider>
     </UserProvider>
   );
 }

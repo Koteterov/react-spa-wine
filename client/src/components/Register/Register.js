@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/userContext";
+import { ServerMessageContext } from "../../contexts/serverMessageContext";
+import ServerMessage from "../ServerMessage/ServerMessage";
 
 import Error from "../Error/Error";
 import * as userService from "../../services/userService";
@@ -10,6 +12,11 @@ import * as userService from "../../services/userService";
 export default function Register() {
   const navigate = useNavigate();
   const { updateNav } = useContext(UserContext);
+  const { serverMessage } = useContext(ServerMessageContext);
+  const [message, setMessage] = useState({
+    success: "",
+    error: "",
+  });
 
   const formData = {
     firstName: "",
@@ -111,11 +118,14 @@ export default function Register() {
       )
       .then((userData) => {
         if (userData.accessToken) {
+          serverMessage.success = "Logged in successfully";
           updateNav(userData);
-          navigate("/wine/my-wines");
-        }
-        if (userData.message) {
-          console.log(userData.message);
+          navigate("/wine/all");
+        } else {
+          setMessage({ error: userData.message });
+          setTimeout(() => {
+            setMessage()?.clear();
+          }, 2000);
         }
       })
       .catch(() => {
@@ -125,6 +135,7 @@ export default function Register() {
 
   return (
     <section id="register-page">
+      {message && <ServerMessage message={message} />}
       <div className={styles["signupSection"]}>
         <div className={styles["info"]}>
           <h2>

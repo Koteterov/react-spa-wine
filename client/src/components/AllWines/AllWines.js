@@ -1,10 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styles from "./AllWines.module.css";
 import { Link } from "react-router-dom";
+import { ServerMessageContext } from "../../contexts/serverMessageContext";
+
+import ServerMessage from "../ServerMessage/ServerMessage";
+
 import * as wineService from "../../services/wineService";
 
 export default function AllWines() {
   const [wines, setWines] = useState([]);
+
+  const { serverMessage } = useContext(ServerMessageContext);
+  const [message, setMessage] = useState({
+    success: serverMessage?.success,
+  });
 
   useEffect(() => {
     wineService
@@ -17,8 +26,13 @@ export default function AllWines() {
       });
   }, []);
 
+  setTimeout(() => {
+    setMessage()?.clear();
+  }, 2000);
+
   return (
     <section className={styles["catalog"]} id={styles["catalog"]}>
+      {message && <ServerMessage serverMessage={serverMessage} />}
       <h1>Wine Posts </h1>
       <div>
         {/* for pagination
