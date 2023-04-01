@@ -13,8 +13,7 @@ export default function Register() {
   const navigate = useNavigate();
   const { updateNav } = useContext(UserContext);
   const { serverMessage } = useContext(ServerMessageContext);
-  const [message, setMessage] = useState({
-    success: "",
+  const [errorMessage, setErrorMessage] = useState({
     error: "",
   });
 
@@ -122,9 +121,9 @@ export default function Register() {
           updateNav(userData);
           navigate("/wine/all");
         } else {
-          setMessage({ error: userData.message });
+          setErrorMessage({ error: userData.message });
           setTimeout(() => {
-            setMessage()?.clear();
+            setErrorMessage()?.clear();
           }, 2000);
         }
       })
@@ -135,7 +134,7 @@ export default function Register() {
 
   return (
     <section id="register-page">
-      {message && <ServerMessage message={message} />}
+      {errorMessage && <ServerMessage message={errorMessage} />}
       <div className={styles["signupSection"]}>
         <div className={styles["info"]}>
           <h2>
