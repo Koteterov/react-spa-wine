@@ -3,10 +3,10 @@ import { createContext } from "react";
 export const ServerMessageContext = createContext();
 
 export const ServerMessageProvider = ({ children }) => {
-  const serverMessage = {};
+  const successMessage = {};
 
   return (
-    <ServerMessageContext.Provider value={{ serverMessage }}>
+    <ServerMessageContext.Provider value={{ successMessage }}>
       {children}
     </ServerMessageContext.Provider>
   );

@@ -1,10 +1,10 @@
 import styles from "./ServerMessage.module.css";
 
-export default function ServerMessage({ message, serverMessage }) {
-  if (serverMessage?.success) {
+export default function ServerMessage({ message, successMessage }) {
+  if (successMessage?.success) {
     return (
       <div className={styles["success-container"]}>
-        <p>{serverMessage?.success}</p>
+        <p>{successMessage?.success}</p>
       </div>
     );
   }

@@ -11,7 +11,7 @@ import ServerMessage from "../ServerMessage/ServerMessage";
 export default function Login() {
   const navigate = useNavigate();
   const { updateNav } = useContext(UserContext);
-  const { serverMessage } = useContext(ServerMessageContext);
+  const { successMessage } = useContext(ServerMessageContext);
   const [errorMessage, setErrorMessage] = useState({
     error: "",
   });
@@ -59,7 +59,7 @@ export default function Login() {
       .login(values.email, values.password)
       .then((userData) => {
         if (userData.accessToken) {
-          serverMessage.success = "Logged in successfully";
+          successMessage.success = "Logged in successfully";
           // setMessage({ success: "Logged in successfully"});
           updateNav(userData);
           navigate("/wine/all");

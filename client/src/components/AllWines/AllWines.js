@@ -10,9 +10,9 @@ import * as wineService from "../../services/wineService";
 export default function AllWines() {
   const [wines, setWines] = useState([]);
 
-  const { serverMessage } = useContext(ServerMessageContext);
+  const { successMessage } = useContext(ServerMessageContext);
   const [message, setMessage] = useState({
-    success: serverMessage?.success,
+    success: successMessage?.success,
   });
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function AllWines() {
 
   return (
     <section className={styles["catalog"]} id={styles["catalog"]}>
-      {message && <ServerMessage serverMessage={serverMessage} />}
+      {message && <ServerMessage successMessage={successMessage} />}
       <h1>Wine Posts </h1>
       <div>
         {/* for pagination
