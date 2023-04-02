@@ -2,7 +2,11 @@ import * as request from "./requester";
 
 const baseURL = "http://localhost:3030/data/catalog";
 
-export const getAll = () => request.get(baseURL);
+export const getAll = (name, startIndex, limit) => {
+  return request.get(
+    `${baseURL}/?name=${name}&startIndex=${startIndex}&limit=${limit}`
+  );
+};
 
 export const getOne = (wineId) => request.get(`${baseURL}/${wineId}`);
 

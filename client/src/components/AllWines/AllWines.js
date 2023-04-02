@@ -9,6 +9,8 @@ import * as wineService from "../../services/wineService";
 
 export default function AllWines() {
   const [wines, setWines] = useState([]);
+  const [values, setValues] = useState({ search: "" });
+  const [notFound, setNotFound] = useState(false);
 
   const { successMessage } = useContext(ServerMessageContext);
   const [message, setMessage] = useState({
@@ -17,14 +19,27 @@ export default function AllWines() {
 
   useEffect(() => {
     wineService
-      .getAll()
+      .getAll(values.search)
       .then((data) => {
         setWines(data.result);
+        if (data.result.length === 0) {
+          setNotFound(true);
+        } else {
+          setNotFound(false);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [values]);
+
+  const onChangeHandler = (e) => {
+    setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
 
   setTimeout(() => {
     setMessage()?.clear();
@@ -45,13 +60,19 @@ export default function AllWines() {
             Search for wines:
           </label>
         </div>
-        <form>
-          <input type="search" id="site-search" name="search" />
+        <form onSubmit={onSubmit}>
+          <input
+            type="search"
+            id="site-search"
+            name="search"
+            value={values.search}
+            onChange={onChangeHandler}
+          />
         </form>
       </div>
 
       <div className={styles["container"]}>
-        {wines.length > 0 ? (
+        {wines.length > 0 &&
           wines.map((x) => (
             <div className={styles["wine"]} key={x._id}>
               <div className={styles["info-container"]}>
@@ -67,13 +88,13 @@ export default function AllWines() {
                 </Link>
               </div>
             </div>
-          ))
-        ) : (
+          ))}
+        {wines.length === 0 && !notFound && (
           <h2 className={styles["no-record"]}>
             There are no wines posted yet...
           </h2>
         )}
-        {/* <h2 className={styles["no-record"]}>No matches found</h2> */}
+        {notFound && <h2 className={styles["no-record"]}>No matches found</h2>}
       </div>
     </section>
   );
