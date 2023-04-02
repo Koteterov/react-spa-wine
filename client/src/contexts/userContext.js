@@ -16,8 +16,10 @@ export const UserProvider = ({ children }) => {
     setUser(userData);
   }
 
+  const notAuthenticated = !!user.message;
+
   return (
-    <UserContext.Provider value={{ user, updateNav }}>
+    <UserContext.Provider value={{ user, updateNav, notAuthenticated }}>
       {children}
     </UserContext.Provider>
   );
