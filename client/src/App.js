@@ -16,6 +16,7 @@ import NotFound from "./components/NotFound/NotFound";
 
 import { UserProvider } from "./contexts/userContext";
 import { ServerMessageProvider } from "./contexts/serverMessageContext";
+import RouteGuard from "./components/common/RouteGuard";
 
 function App() {
   return (
@@ -28,13 +29,17 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/user/login" element={<Login />} />
             <Route path="/user/register" element={<Register />} />
-            <Route path="/user/logout" element={<Logout />} />
-            <Route path="/wine/create" element={<CreateWinePost />} />
             <Route path="/wine/all" element={<AllWines />} />
-            <Route path="/wine/my-wines" element={<MyWines />} />
-            <Route path="/user/profile" element={<Profile />} />
-            <Route path="/wine/details/:wineId" element={<Details />} />
-            <Route path="/wine/edit/:wineId" element={<Edit />} />
+
+            <Route element={<RouteGuard />}>
+              <Route path="/user/logout" element={<Logout />} />
+              <Route path="/wine/create" element={<CreateWinePost />} />
+              <Route path="/wine/my-wines" element={<MyWines />} />
+              <Route path="/user/profile" element={<Profile />} />
+              <Route path="/wine/details/:wineId" element={<Details />} />
+              <Route path="/wine/edit/:wineId" element={<Edit />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
