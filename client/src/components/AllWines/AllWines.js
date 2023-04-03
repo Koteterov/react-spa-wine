@@ -18,15 +18,30 @@ export default function AllWines() {
   });
 
   useEffect(() => {
+    // if there is search
+    if (values.search) {
+      const getData = setTimeout(() => {
+        wineService
+          .getAll(values.search)
+          .then((data) => {
+            setWines(data.result);
+            if (data.result.length === 0) {
+              setNotFound(true);
+            } else {
+              setNotFound(false);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }, 1000);
+      return () => clearTimeout(getData);
+    }
+    // if NO search
     wineService
-      .getAll(values.search)
+      .getAll("")
       .then((data) => {
         setWines(data.result);
-        if (data.result.length === 0) {
-          setNotFound(true);
-        } else {
-          setNotFound(false);
-        }
       })
       .catch((err) => {
         console.log(err);
