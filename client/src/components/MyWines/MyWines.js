@@ -3,17 +3,21 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/userContext";
 import * as wineService from "../../services/wineService";
+import LoadingSpinner from "../Spinner/Spinner";
 import styles from "./MyWines.module.css";
 
 export default function MyWines() {
   const { user } = useContext(UserContext);
   const [myWines, setMyWines] = useState([]);
+  const [showSpinner, setShowSpinner] = useState(true);
 
   useEffect(() => {
     if (user._id) {
-      wineService.getMy(user._id)
+      wineService
+        .getMy(user._id)
         .then((data) => {
           setMyWines(data);
+          setShowSpinner(false);
         })
         .catch((err) => {
           console.log(err);
@@ -24,8 +28,14 @@ export default function MyWines() {
   return (
     <section className={styles["catalog"]} id={styles["catalog"]}>
       <h1>My Wine Posts</h1>
+
+      {showSpinner && (
+        <div>
+          <LoadingSpinner />
+        </div>
+      )}
       <div className={styles["container"]}>
-        {myWines.length > 0 ? (
+        {myWines.length > 0 &&
           myWines.map((x) => (
             <div className={styles["wine"]} key={x._id}>
               <div className={styles["info-container"]}>
@@ -41,8 +51,8 @@ export default function MyWines() {
                 </Link>
               </div>
             </div>
-          ))
-        ) : (
+          ))}
+        {myWines.length === 0 && !showSpinner && (
           <h2 className={styles["no-record"]}>You have not posted yet</h2>
         )}
       </div>

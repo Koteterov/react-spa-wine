@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { ServerMessageContext } from "../../contexts/serverMessageContext";
 
 import ServerMessage from "../ServerMessage/ServerMessage";
-
 import * as wineService from "../../services/wineService";
+import LoadingSpinner from "../Spinner/Spinner";
 
 export default function AllWines() {
   const [wines, setWines] = useState([]);
   const [values, setValues] = useState({ search: "" });
   const [notFound, setNotFound] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(true);
 
   const { successMessage } = useContext(ServerMessageContext);
   const [message, setMessage] = useState({
@@ -25,6 +26,7 @@ export default function AllWines() {
           .getAll(values.search)
           .then((data) => {
             setWines(data.result);
+            setShowSpinner(false);
             if (data.result.length === 0) {
               setNotFound(true);
             } else {
@@ -42,6 +44,7 @@ export default function AllWines() {
       .getAll("")
       .then((data) => {
         setWines(data.result);
+        setShowSpinner(false);
       })
       .catch((err) => {
         console.log(err);
@@ -85,6 +88,11 @@ export default function AllWines() {
           />
         </form>
       </div>
+      {showSpinner && (
+        <div>
+          <LoadingSpinner />
+        </div>
+      )}
 
       <div className={styles["container"]}>
         {wines.length > 0 &&
@@ -104,7 +112,7 @@ export default function AllWines() {
               </div>
             </div>
           ))}
-        {wines.length === 0 && !notFound && (
+        {wines.length === 0 && !notFound && !showSpinner && (
           <h2 className={styles["no-record"]}>
             There are no wines posted yet...
           </h2>
