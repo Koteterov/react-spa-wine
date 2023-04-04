@@ -57,8 +57,12 @@ a {
   }
 }
 
-#loader {
-  bottom: 0;
+.loader {
+  font-size: 35px;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  
+  /* bottom: 0;
   height: 60px;
   left: 0;
   margin: auto;
@@ -73,5 +77,5 @@ a {
   background-color: rgba(72, 39, 13, 0.75);
   display: inline-block;
   border-radius: 10px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif; */
 }

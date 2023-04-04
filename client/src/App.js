@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Suspense } from "react";
 import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -29,7 +30,14 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/user/login" element={<Login />} />
             <Route path="/user/register" element={<Register />} />
-            <Route path="/wine/all" element={<AllWines />} />
+            
+            <Route path="/wine/all"
+              element={
+                <Suspense fallback={<h1 className="loader">Loading....</h1>}>
+                  <AllWines />
+                </Suspense>
+              }
+            />
 
             <Route element={<RouteGuard />}>
               <Route path="/user/logout" element={<Logout />} />
