@@ -119,3 +119,7 @@
     font-size: 26px;
     text-transform: none;
   }
+  .pagination {
+    display: flex;
+    justify-content: center;
+  }
