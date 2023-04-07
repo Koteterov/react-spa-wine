@@ -20,7 +20,7 @@ export default function AllWines() {
   });
   const [showPagination, setShowPagination] = useState(true);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [startIndex, setStartIndex] = useState(1);
   const [pages, setPages] = useState(0);
   const limit = 3;
 
@@ -52,7 +52,7 @@ export default function AllWines() {
     setShowPagination(true);
 
     wineService
-      .getAll("", currentPage, limit)
+      .getAll("", startIndex, limit)
       .then((data) => {
         setWines(data.result);
         setPages(Math.ceil(data.totalPages / limit));
@@ -61,7 +61,7 @@ export default function AllWines() {
       .catch((err) => {
         console.log(err);
       });
-  }, [values, currentPage, pages]);
+  }, [values, startIndex]);
 
   const onChangeHandler = (e) => {
     setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -76,26 +76,26 @@ export default function AllWines() {
   }, 2000);
 
   const firstPageOnClick = () => {
-    setCurrentPage(0);
+    setStartIndex(0);
   };
 
   const lastPageOnClick = () => {
-    setCurrentPage(pages * limit - limit);
+    setStartIndex(pages * limit - limit);
   };
 
   const pagesOnClick = (i) => {
-    setCurrentPage(i * limit);
+    setStartIndex(i * limit);
   };
 
   const previousPageOnClick = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - limit);
+    if (startIndex > 0) {
+      setStartIndex(startIndex - limit);
     }
   };
 
   const nextPageOnClick = () => {
-    if (currentPage < limit * pages - limit) {
-      setCurrentPage(currentPage + limit);
+    if (startIndex < limit * pages - limit) {
+      setStartIndex(startIndex + limit);
     }
   };
 
