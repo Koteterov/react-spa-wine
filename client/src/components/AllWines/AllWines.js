@@ -18,24 +18,22 @@ export default function AllWines() {
   const [message, setMessage] = useState({
     success: successMessage?.success,
   });
+  const [showPagination, setShowPagination] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const limit = 3;
-  const indexOfLastPage = currentPage * limit;
-  const indexOfFirstPage = indexOfLastPage - limit;
-  const currentWines = wines.slice(indexOfFirstPage, indexOfLastPage);
-
   const [pages, setPages] = useState(0);
+  const limit = 3;
 
   useEffect(() => {
     // if there is search
     if (values.search) {
+      setShowPagination(false);
       const getData = setTimeout(() => {
         wineService
-          .getAll(values.search, currentPage, limit)
+          .getAll(values.search, 0)
           .then((data) => {
             setWines(data.result);
-            setPages(Math.ceil(data.totalPages / limit));
+            // setPages(Math.ceil(data.result.length / limit));
 
             setShowSpinner(false);
             if (data.result.length === 0) {
@@ -51,18 +49,19 @@ export default function AllWines() {
       return () => clearTimeout(getData);
     }
     // if NO search
+    setShowPagination(true);
+
     wineService
       .getAll("", currentPage, limit)
       .then((data) => {
         setWines(data.result);
         setPages(Math.ceil(data.totalPages / limit));
-
         setShowSpinner(false);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [values, currentPage]);
+  }, [values, currentPage, pages]);
 
   const onChangeHandler = (e) => {
     setValues((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -77,26 +76,26 @@ export default function AllWines() {
   }, 2000);
 
   const firstPageOnClick = () => {
-    setCurrentPage(1);
+    setCurrentPage(0);
   };
 
   const lastPageOnClick = () => {
-    setCurrentPage(pages);
+    setCurrentPage(pages * limit - limit);
   };
 
   const pagesOnClick = (i) => {
-    setCurrentPage(i);
+    setCurrentPage(i * limit);
   };
 
   const previousPageOnClick = () => {
-    if (currentPage > 1) {
-      setCurrentPage((state) => state - 1);
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - limit);
     }
   };
 
   const nextPageOnClick = () => {
-    if (currentPage < pages) {
-      setCurrentPage((state) => state + 1);
+    if (currentPage < limit * pages - limit) {
+      setCurrentPage(currentPage + limit);
     }
   };
 
@@ -109,18 +108,18 @@ export default function AllWines() {
           Select pages
         </div>
 
-        <div className={styles["pagination"]}>
-          <Paginator
-            wines={wines}
-            pages={pages}
-            currentPage={currentPage}
-            firstPageOnClick={firstPageOnClick}
-            lastPageOnClick={lastPageOnClick}
-            pagesOnClick={pagesOnClick}
-            previousPageOnClick={previousPageOnClick}
-            nextPageOnClick={nextPageOnClick}
-          />
-        </div>
+        {showPagination && (
+          <div className={styles["pagination"]}>
+            <Paginator
+              pages={pages}
+              firstPageOnClick={firstPageOnClick}
+              lastPageOnClick={lastPageOnClick}
+              pagesOnClick={pagesOnClick}
+              previousPageOnClick={previousPageOnClick}
+              nextPageOnClick={nextPageOnClick}
+            />
+          </div>
+        )}
 
         <div>
           <label className={styles["label"]} htmlFor="site-search">

@@ -1,9 +1,7 @@
 import Pagination from "react-bootstrap/Pagination";
 
 function Paginator({
-  wines,
   pages,
-  currentPage,
   firstPageOnClick,
   lastPageOnClick,
   pagesOnClick,
@@ -21,11 +19,10 @@ function Paginator({
       <Pagination.Prev onClick={previousPageOnClick} />
 
       {allWines.map((x, i) => (
-        <Pagination.Item key={i} onClick={() => pagesOnClick(i + 1)}>
+        <Pagination.Item key={i} onClick={() => pagesOnClick(i)}>
           {i + 1}
         </Pagination.Item>
       ))}
-
       <Pagination.Next onClick={nextPageOnClick} />
       <Pagination.Last onClick={lastPageOnClick} />
     </Pagination>
