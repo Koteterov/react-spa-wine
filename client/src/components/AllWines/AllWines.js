@@ -107,21 +107,22 @@ export default function AllWines() {
       {message && <ServerMessage successMessage={successMessage} />}
       <h1>Wine Posts </h1>
       <div>
-        <div className={styles["catalog"]} id={styles["select-pages"]}>
-          Select pages
-        </div>
-
         {showPagination && (
-          <div className={styles["pagination"]}>
-            <Paginator
-              pages={pages}
-              firstPageOnClick={firstPageOnClick}
-              lastPageOnClick={lastPageOnClick}
-              pagesOnClick={pagesOnClick}
-              previousPageOnClick={previousPageOnClick}
-              nextPageOnClick={nextPageOnClick}
-            />
-          </div>
+          <>
+            <div className={styles["catalog"]} id={styles["select-pages"]}>
+              Select pages
+            </div>
+            <div className={styles["pagination"]}>
+              <Paginator
+                pages={pages}
+                firstPageOnClick={firstPageOnClick}
+                lastPageOnClick={lastPageOnClick}
+                pagesOnClick={pagesOnClick}
+                previousPageOnClick={previousPageOnClick}
+                nextPageOnClick={nextPageOnClick}
+              />
+            </div>
+          </>
         )}
 
         <div>
