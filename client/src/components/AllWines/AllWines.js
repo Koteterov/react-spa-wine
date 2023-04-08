@@ -20,7 +20,7 @@ export default function AllWines() {
   });
   const [showPagination, setShowPagination] = useState(true);
 
-  const [startIndex, setStartIndex] = useState(1);
+  const [startIndex, setStartIndex] = useState(0);
   const [pages, setPages] = useState(0);
   const limit = 3;
 
