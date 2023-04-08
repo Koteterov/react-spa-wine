@@ -176,6 +176,7 @@ export default function CreateWinePost() {
                 name="price"
                 min="0"
                 required
+                step="0.01"
                 value={values.price}
                 onChange={onChangeHandler}
                 onBlur={formValidate}
