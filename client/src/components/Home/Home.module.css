@@ -19,7 +19,7 @@
 }
 
 .short-info>h1 {
-    text-transform: capitalize;
+    text-transform: uppercase;
     font-size: 3.7rem;
     font-weight: 600;
     line-height: 1.1;
@@ -35,7 +35,7 @@
 }
 
 .short-info>h2 {
-    text-transform: capitalize;
+    text-transform: lowercase;
     font-size: 1.8rem;
     font-weight: 600;
     line-height: 1.1;

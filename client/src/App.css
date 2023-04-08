@@ -34,6 +34,23 @@ body {
   box-sizing: inherit;
 }
 
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 1) 100%);
+  opacity: 0.7;
+  z-index: -1;
+}
+
+
 a {
   text-decoration: none;
 }
@@ -61,21 +78,5 @@ a {
   font-size: 35px;
   font-family: 'Open Sans', sans-serif;
   color: white;
-  
-  /* bottom: 0;
-  height: 60px;
-  left: 0;
-  margin: auto;
-  padding: 8px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 175px;
-  font-size: 35px;
-  font-weight: bold;
-  color: white;
-  background-color: rgba(72, 39, 13, 0.75);
-  display: inline-block;
-  border-radius: 10px;
-  font-family: 'Open Sans', sans-serif; */
+
 }

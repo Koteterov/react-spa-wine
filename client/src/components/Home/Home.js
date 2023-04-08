@@ -6,9 +6,9 @@ export default function Home() {
       <section id="home">
         <div className={styles["home-container"]}>
           <div className={styles["short-info"]}>
-            <h1>The best of the wine selection.</h1>
+            <h1>The best of the wine selection</h1>
             <h2>
-              Share your choice to add value to the wine market in the country.
+              Share your choice to add value to the wine market in the country
             </h2>
           </div>
         </div>
