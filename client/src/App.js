@@ -30,8 +30,9 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/user/login" element={<Login />} />
             <Route path="/user/register" element={<Register />} />
-            
-            <Route path="/wine/all"
+
+            <Route
+              path="/wine/all"
               element={
                 <Suspense fallback={<h1 className="loader">Loading....</h1>}>
                   <AllWines />
@@ -39,12 +40,12 @@ function App() {
               }
             />
 
+            <Route path="/wine/details/:wineId" element={<Details />} />
             <Route element={<RouteGuard />}>
               <Route path="/user/logout" element={<Logout />} />
               <Route path="/wine/create" element={<CreateWinePost />} />
               <Route path="/wine/my-wines" element={<MyWines />} />
               <Route path="/user/profile" element={<Profile />} />
-              <Route path="/wine/details/:wineId" element={<Details />} />
               <Route path="/wine/edit/:wineId" element={<Edit />} />
             </Route>
 
