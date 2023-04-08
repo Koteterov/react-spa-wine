@@ -71,10 +71,12 @@ export default function AllWines() {
     e.preventDefault();
   };
 
-  setTimeout(() => {
-    successMessage.success = "";
-    setMessage()?.clear();
-  }, 2000);
+  if (successMessage.success) {
+    setTimeout(() => {
+      successMessage.success = "";
+      setMessage()?.clear();
+    }, 2000);
+  }
 
   const firstPageOnClick = () => {
     setStartIndex(0);
