@@ -14,7 +14,7 @@ export default function AllWines() {
   const [notFound, setNotFound] = useState(false);
   const [showSpinner, setShowSpinner] = useState(true);
 
-  const { successMessage } = useContext(ServerMessageContext);
+  let { successMessage } = useContext(ServerMessageContext);
   const [message, setMessage] = useState({
     success: successMessage?.success,
   });
@@ -72,6 +72,7 @@ export default function AllWines() {
   };
 
   setTimeout(() => {
+    successMessage.success = "";
     setMessage()?.clear();
   }, 2000);
 
