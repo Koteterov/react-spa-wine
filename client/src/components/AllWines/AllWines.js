@@ -57,6 +57,7 @@ export default function AllWines() {
         setWines(data.result);
         setPages(Math.ceil(data.totalPages / limit));
         setShowSpinner(false);
+        setNotFound(false);
       })
       .catch((err) => {
         console.log(err);
